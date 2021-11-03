@@ -34,7 +34,7 @@ namespace Salvo.Models
                     },
                     new Player
                     {
-                        Email = "t.almeida @ctu.go",
+                        Email = "t.almeida @ctu.gov",
                         Name = "Tony Almeida",
                         Password = "mole"
                     }
@@ -47,8 +47,40 @@ namespace Salvo.Models
                 context.SaveChanges();
 
             }
+            if (!context.Games.Any())
+            {
+                var games = new Game[] {
 
-            
+                    new Game
+                    {
+                        CreationTime = DateTime.Now 
+                    },
+                    new Game
+                    {
+                        CreationTime = DateTime.Now.AddHours(1)
+                    },
+                    new Game
+                    {
+                        CreationTime = DateTime.Now.AddHours(2)
+                    },
+                    new Game
+                    {
+                        CreationTime = DateTime.Now.AddHours(4)
+                    },
+                    new Game
+                    {
+                        CreationTime = DateTime.Now.AddHours(5)
+                    }
+                };
+                foreach(Game game in games)
+                {
+                    context.Games.Add(game);
+                }
+                context.SaveChanges();
+            }
+
+
+
 
         }
     }
