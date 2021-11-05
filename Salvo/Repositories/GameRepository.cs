@@ -1,4 +1,5 @@
-﻿using Salvo.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Salvo.Models;
 using Salvo.Pages.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,23 @@ namespace Salvo.Repositories
         {
 
         }
-        
 
-        IEnumerable<Game> IGameRepository.GetAllGames()
+
+        public IEnumerable<Game> GetAllGames()
         {
-            throw new NotImplementedException();
+            return FindAll()
+                .OrderBy(game => game.CreationDate)
+                .ToList();
         }
 
-        
-
-        IEnumerator<Game> IGameRepository.GetAllGamesWithplayers()
+        public IEnumerable<Game> GetAllGamesWithPlayers()
         {
-            throw new NotImplementedException();
+
+            return FindAll(source => source.Include(game => game.GamePlayers)
+                .ThenInclude(gameplayer => gameplayer.Player))
+            .OrderBy(game => game.CreationDate)
+            .ToList();
+
         }
     }
 }

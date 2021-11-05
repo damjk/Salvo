@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,9 +10,10 @@ namespace Salvo.Pages.Repositories
     public interface IRepositoryBase<T>
     {
         IQueryable<T> FindAll();
+        IQueryable<T> FindAll(Func<IQueryable<T>, IIncludableQueryable<T ,object>> includes=null);
         IQueryable<T> FindByCondition(Expression<Func<Task,bool>> expression);
-        void Create(T entiry);
-        void Update(T Entity);
+        void Create(T entity);
+        void Update(T entity);
         void Delete(T entity);
     }
 }

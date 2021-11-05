@@ -2,22 +2,22 @@
 
 namespace Salvo.Migrations
 {
-    public partial class updatePlayerEntity : Migration
+    public partial class InitialCreate1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Nombre",
-                table: "Players",
-                newName: "Name");
+                name: "CreationTime",
+                table: "Games",
+                newName: "CreationDate");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Name",
-                table: "Players",
-                newName: "Nombre");
+                name: "CreationDate",
+                table: "Games",
+                newName: "CreationTime");
         }
     }
 }
