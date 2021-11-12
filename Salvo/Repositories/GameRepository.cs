@@ -27,7 +27,9 @@ namespace Salvo.Repositories
         {
 
             return FindAll(source => source.Include(game => game.GamePlayers)
-                .ThenInclude(gameplayer => gameplayer.Player))
+                .ThenInclude(gameplayer => gameplayer.Player)
+                .ThenInclude(player => player.Scores))
+
             .OrderBy(game => game.CreationDate)
             .ToList();
 
