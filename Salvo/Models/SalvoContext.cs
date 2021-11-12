@@ -8,6 +8,8 @@ namespace Salvo.Models
 {
     public class SalvoContext : DbContext
     {
+        
+
         public SalvoContext(DbContextOptions<SalvoContext> options) : base(options)
         {
         }
@@ -16,5 +18,7 @@ namespace Salvo.Models
         public DbSet<GamePlayer> GamePlayers { get; set; }
         public DbSet<Ship> Ships { get; set; }
         public DbSet<ShipLocation> ShipLocations { get; set; }
+        public DbSet<Salvo> Salvos { get; set; }
+        public DbSet<SalvoLocation> SalvoLocations { get; set; }
     }
 }
