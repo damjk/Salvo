@@ -64,8 +64,8 @@
 
 .grid-ships {
     border: solid black;
-    height: 450px;
     width: 450px;
+    height: 450px;
     background-image: url('../img/grid-bkg.png');
     background-size: contain;
     padding-left: 42px;
@@ -73,19 +73,21 @@
     position: relative;
 }
 
-.salvo-table{
+.salvo-table {
     border: solid black 1px;
     background-image: url('../img/backships.gif');
     background-size: contain;
+    width: 450px;
+    height: 450px;
 }
 
 .salvo-table th{
-    background-color: rgb(213, 213, 213);
+    background-color: rgb(5 13 78);
     text-align: center;
 }
 
 .salvo-table .td-info {
-    background-color: rgb(213, 213, 213);
+    background-color: rgb(5 13 78);
     text-align: center;
 }
 
@@ -96,7 +98,7 @@
     text-align: center;
 }
 
-.shot{
+.shoot{
     background-image: url('../img/targetself.png');
     background-size: contain;
 }
@@ -107,4 +109,34 @@
     height: 40px;
     background-image: url('../img/hit3.gif');
     background-size: contain;
+}
+
+.shooted {
+    background-image: url('../img/targetself.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hitOpponent {
+    background-image: url('../img/hit3.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#playersList{
+    display: inline;
+    margin-left: 20px;
+    color: black;
+}
+
+#playersList #playerOne {
+    color: red;
+}
+
+.shipsStatus {
+    background-color: #3b66d336;
+    max-width: 450px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 10px 5px;
 }

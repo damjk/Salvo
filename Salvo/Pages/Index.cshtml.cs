@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Salvo.Pages
+namespace salvo.Pages
 {
     public class IndexModel : PageModel
     {

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Salvo.Models
+namespace salvo.Models
 {
     public class Player
     {
         public long Id { get; set; }
-        public string  Email { get; set; }
-        public string Name  { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+
         public string Password { get; set; }
 
         public ICollection<GamePlayer> GamePlayers { get; set; }
@@ -17,9 +20,7 @@ namespace Salvo.Models
 
         public Score GetScore(Game game)
         {
-
-
-            return Scores.FirstOrDefault(score=>score.GameId == game.Id);
+            return Scores.Where(score => score.Game.Id == game.Id).FirstOrDefault();
         }
     }
 }

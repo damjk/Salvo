@@ -1,18 +1,19 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Salvo.Models;
-using Salvo.Pages.Repositories;
-using Salvo.Repositories;
+using salvo.Models;
+using salvo.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Salvo
+namespace salvo
 {
     public class Startup
     {
@@ -27,11 +28,27 @@ namespace Salvo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            //inyeccion de dependencia para salvo context
-            services.AddDbContext<SalvoContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SalvoDataBase")));
-            //inyectar repositorio de game
+
+            services.AddDbContext<SalvoContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("SalvoDataBase"),
+               options => options.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IGamePlayerRepository, GamePlayerRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IScoreRepository, ScoreRepository>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                        options.LoginPath = new PathString("/index.html");
+                    });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("PlayerOnly", policy => policy.RequireClaim("Player"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,14 +67,17 @@ namespace Salvo
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=games}/{ action = Get}");
+                    name: "default",
+                    pattern: "{controller=games}/{ action = Get}"
+                );
             });
         }
     }

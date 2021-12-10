@@ -1,13 +1,15 @@
-﻿using Salvo.Models;
+﻿using salvo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Salvo.Repositories
+namespace salvo.Repositories
 {
-    public interface IGamePlayerRepository
+    public interface IGamePlayerRepository : IRepositoryBase<GamePlayer>
     {
-        GamePlayer GetGamePlayerView(long idGamePlayer); 
+        public GamePlayer GetGamePlayerView(long idGamePlayer);
+        void Save(GamePlayer gamePlayer);
+        GamePlayer FindById(long id);
     }
 }
